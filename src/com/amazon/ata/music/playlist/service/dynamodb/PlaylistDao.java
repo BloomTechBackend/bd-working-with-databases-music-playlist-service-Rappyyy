@@ -35,4 +35,13 @@ public class PlaylistDao {
 
         return playlist;
     }
+    public Playlist savePlaylist(Playlist playlist) {
+         try {
+             dynamoDbMapper.save(playlist);
+         }catch (Exception e){
+             System.out.println(e);
+         }
+         return playlist;
+    }
+
 }

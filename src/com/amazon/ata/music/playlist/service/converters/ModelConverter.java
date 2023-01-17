@@ -15,7 +15,8 @@ public class ModelConverter {
      * @return the converted playlist
      */
     public PlaylistModel toPlaylistModel(Playlist playlist) {
-        List<String> tags = new ArrayList<>(playlist.getTags());
+        List<String> tags = playlist.getTags() == null ? null : new ArrayList<>(playlist.getTags());
+
         return PlaylistModel.builder()
             .withId(playlist.getId())
                 .withName(playlist.getName())

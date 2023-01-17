@@ -1,14 +1,26 @@
 package com.amazon.ata.music.playlist.service.activity;
 
+import com.amazon.ata.music.playlist.service.converters.ModelConverter;
+import com.amazon.ata.music.playlist.service.dynamodb.models.AlbumTrack;
+import com.amazon.ata.music.playlist.service.dynamodb.models.Playlist;
+import com.amazon.ata.music.playlist.service.exceptions.InvalidAttributeChangeException;
+import com.amazon.ata.music.playlist.service.exceptions.InvalidAttributeValueException;
+import com.amazon.ata.music.playlist.service.exceptions.PlaylistNotFoundException;
 import com.amazon.ata.music.playlist.service.models.PlaylistModel;
 import com.amazon.ata.music.playlist.service.models.requests.UpdatePlaylistRequest;
 import com.amazon.ata.music.playlist.service.models.results.UpdatePlaylistResult;
 import com.amazon.ata.music.playlist.service.dynamodb.PlaylistDao;
 
+import com.amazon.ata.music.playlist.service.util.MusicPlaylistServiceUtils;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 
 /**
  * Implementation of the UpdatePlaylistActivity for the MusicPlaylistService's UpdatePlaylist API.
@@ -50,8 +62,26 @@ public class UpdatePlaylistActivity implements RequestHandler<UpdatePlaylistRequ
     public UpdatePlaylistResult handleRequest(final UpdatePlaylistRequest updatePlaylistRequest, Context context) {
         log.info("Received UpdatePlaylistRequest {}", updatePlaylistRequest);
 
+        String name = updatePlaylistRequest.getName();
+        String customerId = updatePlaylistRequest.getCustomerId();
+        String id = updatePlaylistRequest.getId();
+
+        if (!MusicPlaylistServiceUtils.isValidString(name) || !MusicPlaylistServiceUtils.isValidString(customerId)) {
+            throw new InvalidAttributeValueException("Request valid characters");
+        }
+
+        Playlist playlist = playlistDao.getPlaylist(id);
+
+        if (!customerId.equals(playlist.getCustomerId())){
+            throw new InvalidAttributeChangeException();
+        }
+
+        playlist.setName(name);
+        Playlist updatedPlaylist = playlistDao.savePlaylist(playlist);
+
         return UpdatePlaylistResult.builder()
-                .withPlaylist(new PlaylistModel())
+                .withPlaylist(new ModelConverter().toPlaylistModel(updatedPlaylist))
                 .build();
     }
+
 }

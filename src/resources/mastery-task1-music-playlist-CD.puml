@@ -36,9 +36,7 @@ class AlbumTrackNotFoundException {
 class PlaylistNotFoundException {
 
 }
-class InvalidAttributeValueException {
 
-}
 class GetPlaylistActivity {
 
 }
@@ -48,6 +46,19 @@ class GetPlaylistSongsActivity {
 class UpdatePlaylistActivity {
 
 }
+class InvalidAttributeChangeException {
+{static} final long serialVersionUID
+}
+class InvalidAttributeValueException {
+ {static} final long serialVersionUID
+}
+class RuntimeException {
+
+}
+class UpdatePlaylistActivity {
+
+}
+
 class AlbumTrack {
 @DynamoDBHashKey asin : String
 @DynamoDBRangeKey trackNumber : Integer
@@ -61,8 +72,10 @@ AddSongToPlaylistActivity --> PlaylistDao
 CreatePlaylistActivity --> PlaylistDao
 AddSongToPlaylistActivity --> AlbumTrackDao
 Playlist --> AlbumTrack
-
-
+RuntimeException --> PlaylistNotFoundException
+RuntimeException --> AlbumTrackNotFoundException
+PlaylistNotFoundException <|-- InvalidAttributeValueException
+PlaylistNotFoundException <|-- InvalidAttributeChangeException
 
 
 @enduml

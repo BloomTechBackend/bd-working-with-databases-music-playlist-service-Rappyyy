@@ -12,10 +12,13 @@ import com.amazon.ata.music.playlist.service.dynamodb.PlaylistDao;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 
+import javax.inject.Inject;
+
 /**
  * This class manages service dependencies.
  */
 public class App {
+
     private DynamoDBMapper dynamoDBMapper;
 
     /**
@@ -23,6 +26,7 @@ public class App {
      *
      * @return createPlaylistActivity a new CreatePlaylistActivity with injected dependencies.
      */
+
     public CreatePlaylistActivity provideCreatePlaylistActivity() {
         return new CreatePlaylistActivity(providePlaylistDao());
     }

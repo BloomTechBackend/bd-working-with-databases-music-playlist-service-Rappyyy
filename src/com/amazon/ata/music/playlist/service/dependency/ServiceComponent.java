@@ -9,7 +9,7 @@ import javax.inject.Singleton;
 @Singleton
 public interface ServiceComponent {
 
-    AddSongToPlaylistActivity provideAddsongToPlaylistActivity();
+    AddSongToPlaylistActivity provideAddSongToPlaylistActivity();
     CreatePlaylistActivity provideCreatePlaylistActivity();
     GetPlaylistActivity provideGetPlaylistActivity();
     GetPlaylistSongsActivity provideGetPlaylistSongsActivity();

@@ -1,12 +1,10 @@
 package com.amazon.ata.music.playlist.service.dynamodb.models;
 
 import com.amazon.ata.music.playlist.service.converters.AlbumTrackLinkedListConverter;
-
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
 
-import java.sql.Struct;
-import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Represents a record in the playlists table.
@@ -29,7 +27,7 @@ public class Playlist {
     private String customerId;
     private List<AlbumTrack> listSongs;
     private Integer songCount;
-    private HashSet<String> tags;
+    private Set<String> tags;
     @DynamoDBRangeKey(attributeName = "name")
     public String getName() {
         return name;
@@ -67,11 +65,11 @@ public class Playlist {
         return this;
     }
     @DynamoDBAttribute(attributeName = "tags")
-    public HashSet<String> getTags() {
+    public Set<String> getTags() {
         return tags;
     }
 
-    public Playlist setTags(HashSet<String> tags) {
+    public Playlist setTags(Set<String> tags) {
         this.tags = tags;
         return this;
     }

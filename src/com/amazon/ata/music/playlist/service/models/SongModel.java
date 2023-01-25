@@ -77,7 +77,8 @@ public class SongModel {
                 '}';
     }
 
-    public static Builder builder() { return new Builder(); }
+    public static Builder builder()
+    { return new Builder(); }
 
     public static final class Builder {
         private String asin;

@@ -78,6 +78,9 @@ public class UpdatePlaylistActivity implements RequestHandler<UpdatePlaylistRequ
         if (!customerId.equals(playlist.getCustomerId())){
             throw new InvalidAttributeChangeException();
         }
+        if (playlist == null){
+            throw new PlaylistNotFoundException();
+        }
 
         playlist.setName(name);
         Playlist updatedPlaylist = playlistDao.savePlaylist(playlist);

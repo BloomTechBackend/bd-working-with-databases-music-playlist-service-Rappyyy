@@ -76,6 +76,6 @@ RuntimeException --> PlaylistNotFoundException
 RuntimeException --> AlbumTrackNotFoundException
 PlaylistNotFoundException <|-- InvalidAttributeValueException
 PlaylistNotFoundException <|-- InvalidAttributeChangeException
-
+PlaylistDao <|-- RuntimeException
 
 @enduml

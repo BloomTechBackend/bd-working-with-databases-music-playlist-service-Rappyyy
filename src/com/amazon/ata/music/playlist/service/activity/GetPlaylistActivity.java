@@ -1,5 +1,6 @@
 package com.amazon.ata.music.playlist.service.activity;
 
+import com.amazon.ata.music.playlist.service.exceptions.PlaylistNotFoundException;
 import com.amazon.ata.music.playlist.service.models.requests.GetPlaylistRequest;
 import com.amazon.ata.music.playlist.service.models.results.GetPlaylistResult;
 import com.amazon.ata.music.playlist.service.models.PlaylistModel;
@@ -49,6 +50,10 @@ public class GetPlaylistActivity implements RequestHandler<GetPlaylistRequest, G
         String requestedId = getPlaylistRequest.getId();
         Playlist playlist = playlistDao.getPlaylist(requestedId);
         PlaylistModel playlistModel = new ModelConverter().toPlaylistModel(playlist);
+
+        if (playlist == null){
+            throw new PlaylistNotFoundException();
+        }
 
         return GetPlaylistResult.builder()
                 .withPlaylist(playlistModel)

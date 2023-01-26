@@ -60,7 +60,7 @@ public class AddSongToPlaylistActivity implements RequestHandler<AddSongToPlayli
         log.info("Received AddSongToPlaylistRequest {} ", addSongToPlaylistRequest);
         Playlist playlist = playlistDao.getPlaylist(addSongToPlaylistRequest.getId());
         AlbumTrack albumTrack = albumTrackDao.getAlbumTrack(addSongToPlaylistRequest.getAsin(),addSongToPlaylistRequest.getTrackNumber());
-        addSongToPlaylistRequest.isQueueNext();
+
 
         if (albumTrack == null){
             throw new AlbumTrackNotFoundException();
@@ -75,7 +75,6 @@ public class AddSongToPlaylistActivity implements RequestHandler<AddSongToPlayli
         }
        albumTrackDao.saveAlbumTrack(albumTrack);
        playlistDao.savePlaylist(playlist);
-
 
         return AddSongToPlaylistResult.builder()
                 .withSongList(new ModelConverter().toSongModelList(playlist.getSongList()))

@@ -16,10 +16,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Implementation of the CreatePlaylistActivity for the MusicPlaylistService's CreatePlaylist API.
@@ -79,7 +76,7 @@ public class CreatePlaylistActivity implements RequestHandler<CreatePlaylistRequ
         playlist.setCustomerId(customerId);
         playlist.setSongCount(0);
         List<AlbumTrack> songs = new ArrayList<>();
-        playlist.setSongList(songs);
+        playlist.setSongList((LinkedList<AlbumTrack>) songs);
         playlist.setTags(tags);
 
         playlistDao.savePlaylist(playlist);

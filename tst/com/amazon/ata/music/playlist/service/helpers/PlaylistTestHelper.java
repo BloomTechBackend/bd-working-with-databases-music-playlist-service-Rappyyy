@@ -26,7 +26,7 @@ public final class PlaylistTestHelper {
         for (int i = 0; i < numTracks; i++) {
             albumTracks.add(AlbumTrackTestHelper.generateAlbumTrack(i));
         }
-        playlist.setSongList(albumTracks);
+        playlist.setSongList((LinkedList<AlbumTrack>) albumTracks);
         playlist.setSongCount(albumTracks.size());
 
         return playlist;

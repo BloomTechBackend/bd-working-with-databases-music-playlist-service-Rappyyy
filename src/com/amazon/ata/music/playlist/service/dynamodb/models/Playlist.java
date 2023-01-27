@@ -3,6 +3,7 @@ package com.amazon.ata.music.playlist.service.dynamodb.models;
 import com.amazon.ata.music.playlist.service.converters.AlbumTrackLinkedListConverter;
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -12,7 +13,7 @@ import java.util.Set;
 @DynamoDBTable(tableName = "playlists")
 public class Playlist {
     private String id;
-    private List<AlbumTrack> songList;
+    private LinkedList<AlbumTrack> songList;
 
     @DynamoDBHashKey(attributeName = "id")
     public String getId() {
@@ -76,11 +77,11 @@ public class Playlist {
 
     @DynamoDBTypeConverted(converter = AlbumTrackLinkedListConverter.class)
     @DynamoDBAttribute(attributeName = "songList")
-    public List<AlbumTrack> getSongList() {
+    public LinkedList<AlbumTrack> getSongList() {
         return songList;
     }
 
-    public void setSongList(List<AlbumTrack> songList) {
+    public void setSongList(LinkedList<AlbumTrack> songList) {
         this.songList = songList;
     }
 }

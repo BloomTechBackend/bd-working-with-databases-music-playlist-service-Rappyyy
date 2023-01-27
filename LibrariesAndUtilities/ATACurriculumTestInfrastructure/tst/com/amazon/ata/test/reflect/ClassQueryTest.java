@@ -1,12 +1,9 @@
 package com.amazon.ata.test.reflect;
 
-import com.amazon.ata.test.reflect.ClassQuery;
-import com.amazon.ata.test.reflect.MultipleClassesFoundException;
-import com.amazon.ata.test.reflect.NoClassFoundException;
 import com.amazon.ata.test.reflect.testpackage.AnotherClassInTestPackage;
 import com.amazon.ata.test.reflect.testpackage.ClassInTestPackage;
 import com.amazon.ata.test.reflect.testpackage.ExceptionInTestPackage;
-import com.amazon.ata.test.reflect.testpackage.anothersubpackage.ClassInTestPackageAnotherSubpackage;
+import com.amazon.ata.test.reflect.testpackage.anothersubpackage.AnotherPackage;
 import com.amazon.ata.test.reflect.testpackage.subpackage.ClassInTestPackageSubpackage;
 
 import com.google.common.collect.ImmutableSet;
@@ -111,7 +108,7 @@ public class ClassQueryTest {
             ClassInTestPackage.class,
             AnotherClassInTestPackage.class,
             ClassInTestPackageSubpackage.class,
-            ClassInTestPackageAnotherSubpackage.class,
+            AnotherPackage.class,
             com.amazon.ata.test.reflect.testpackage.DupedSimpleName.class,
             com.amazon.ata.test.reflect.testpackage.anothersubpackage.DupedSimpleName.class
         );
@@ -293,7 +290,7 @@ public class ClassQueryTest {
         // GIVEN
         String classNameSubstring = "Subpackage";
         Set<Class<?>> expectedClasses =
-            ImmutableSet.of(ClassInTestPackageSubpackage.class, ClassInTestPackageAnotherSubpackage.class);
+            ImmutableSet.of(ClassInTestPackageSubpackage.class, AnotherPackage.class);
 
         // WHEN
         ClassQuery classQuery = ClassQuery.inContainingPackage(TEST_PACKAGE_NAME)
@@ -310,7 +307,7 @@ public class ClassQueryTest {
     @Test
     void withSimpleNameContaining_calledMultipleTimes_filtersByAllSubstrings() {
         // GIVEN
-        Class<?> expectedClass = ClassInTestPackageAnotherSubpackage.class;
+        Class<?> expectedClass = AnotherPackage.class;
 
         // WHEN
         ClassQuery classQuery = ClassQuery.inContainingPackage(TEST_PACKAGE_NAME)
@@ -491,7 +488,7 @@ public class ClassQueryTest {
             ClassInTestPackage.class,
             AnotherClassInTestPackage.class,
             ClassInTestPackageSubpackage.class,
-            ClassInTestPackageAnotherSubpackage.class
+            AnotherPackage.class
         );
         ClassQuery classQuery = ClassQuery.inContainingPackage("com.amazon.ata")
             .withSimpleNameContaining("TestPackage");
@@ -623,7 +620,7 @@ public class ClassQueryTest {
             .withSimpleNameContaining("TestPackage")
             .withSimpleNameContaining("Another")
             .withSimpleNameContaining("Subpackage");
-        Set<Class<?>> expectedClasses = ImmutableSet.of(ClassInTestPackageAnotherSubpackage.class);
+        Set<Class<?>> expectedClasses = ImmutableSet.of(AnotherPackage.class);
 
         // WHEN
         Set<Class<?>> classes = classQuery.findClasses();

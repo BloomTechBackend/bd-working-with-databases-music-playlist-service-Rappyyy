@@ -1,7 +1,6 @@
 package com.amazon.ata.music.playlist.service.dependency;
 
 import com.amazon.ata.aws.dynamodb.DynamoDbClientProvider;
-import com.amazon.ata.music.playlist.service.lambda.*;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import dagger.Module;
@@ -11,34 +10,12 @@ import javax.inject.Singleton;
 
 @Module
 public class DaoModule {
-    @Provides
     @Singleton
+    @Provides
     DynamoDBMapper provideDynamoDBMapper() {
         return new DynamoDBMapper(DynamoDbClientProvider.getDynamoDBClient(Regions.US_WEST_2));
     }
-    @Provides
-    @Singleton
-    AddSongToPlaylistActivityProvider provideAddSongToPlaylistActivityProvider(){
-        return new AddSongToPlaylistActivityProvider();
-    }
-    @Provides
-    @Singleton
-    CreatePlaylistActivityProvider provideCreatePlaylistActivityProvider(){
-        return new CreatePlaylistActivityProvider();
-    }
-    @Provides
-    @Singleton
-    GetPlaylistActivityProvider provideGetPlaylistActivityProvider(){
-        return new GetPlaylistActivityProvider();
-    }
-    @Provides
-    @Singleton
-    GetPlaylistSongsActivityProvider provideGetPlaylistSongsActivityProvider(){
-        return new GetPlaylistSongsActivityProvider();
-    }
-    @Provides
-    @Singleton
-    UpdatePlaylistActivityProvider provideUpdatePlaylistActivityProvider(){
-        return new UpdatePlaylistActivityProvider();
+    private Regions getRegion(){
+        return Regions.US_WEST_2;
     }
 }

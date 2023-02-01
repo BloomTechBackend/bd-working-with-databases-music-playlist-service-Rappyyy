@@ -29,7 +29,7 @@ public class Playlist {
     private List<AlbumTrack> listSongs;
     private Integer songCount;
     private Set<String> tags;
-    @DynamoDBRangeKey(attributeName = "name")
+
     public String getName() {
         return name;
     }

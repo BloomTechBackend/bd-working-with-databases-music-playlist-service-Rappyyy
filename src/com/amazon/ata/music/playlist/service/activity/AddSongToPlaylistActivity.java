@@ -73,6 +73,7 @@ public class AddSongToPlaylistActivity implements RequestHandler<AddSongToPlayli
         }else {
             playlist.getSongList().add(albumTrack);
         }
+
        albumTrackDao.saveAlbumTrack(albumTrack);
        playlistDao.savePlaylist(playlist);
 

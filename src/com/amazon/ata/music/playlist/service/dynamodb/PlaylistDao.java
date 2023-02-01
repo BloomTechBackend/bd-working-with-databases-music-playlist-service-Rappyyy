@@ -4,6 +4,7 @@ import com.amazon.ata.music.playlist.service.dynamodb.models.Playlist;
 import com.amazon.ata.music.playlist.service.exceptions.PlaylistNotFoundException;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
 
 import javax.inject.Inject;
 
@@ -29,6 +30,7 @@ public class PlaylistDao {
      * @param id the Playlist ID
      * @return the stored Playlist, or null if none was found.
      */
+
     public Playlist getPlaylist(String id) {
         Playlist playlist = this.dynamoDbMapper.load(Playlist.class, id);
 
